@@ -5,6 +5,7 @@ import 'package:riverpod_tutorial/views/counter_page.dart';
 final counterProvider = StateProvider((ref) => 0);
 
 /// we can use the auto dispose to dispose the provider when the state of the page is changed
+/// it can reduce the memory usage when it's not being used
 //final counterProvider = StateProvider.autoDispose((ref) => 0);
 void main() {
   runApp(const ProviderScope(
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
