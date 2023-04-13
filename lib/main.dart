@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_tutorial/views/counter_page.dart';
 
+final counterProvider = StateProvider((ref) => 0);
+
+/// we can use the auto dispose to dispose the provider when the state of the page is changed
+//final counterProvider = StateProvider.autoDispose((ref) => 0);
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -11,6 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Riverpod',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -30,9 +39,17 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text('Hello World'),
+        child: TextButton(
+            onPressed: () => {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: ((context) => const CounterPage())))
+                },
+            child: const Text(
+              'Counter Page',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            )),
       ),
     );
   }
